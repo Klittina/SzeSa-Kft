@@ -1,10 +1,10 @@
 main{
-    width: 90%;
+    width: 100%;
     display: grid;
     margin: auto;
     grid-template-areas: "h h h h h"
                         "n n n n n"
-                        "ar ar ar as as"
+                        "ar ar ar ar as"
                         "f f f f f";
 }
 header{
@@ -29,6 +29,13 @@ article{
     width: 100%;
     grid-area: ar;
     background-color: azure;
+    display: table;
+}
+article div{
+    float: left;
+    width: 33%;
+    margin: 2px;
+    border: 0.5px solid black;
 }
 aside{
     width:100%;
