@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="alap.css">
-    <title>Fő oldal</title>
+    <title>Admin felület</title>
 </head>
 <body>
     <main>
@@ -19,8 +19,22 @@
                 <li><a href="admin.html">Admin</a></li>
             </ul>
         </nav>
-        <article><p>Ide kéne rakni a termékeket</p></article>
-        <aside><p>ide meg reklámot vagy szűrőt vagy idk</p></aside>
+        <div class="adminfunkciok">
+            <div>
+                <form action="/action_page.php">
+                    <label for="tname">Termék neve:</label><br>
+                    <input type="text" id="tname" value=""><br><br>
+                    <label for="tname">Termék képe:</label><br>
+                    <input type="file" id="tpicture" name="tpicture" accept="image/png, image/jpeg" /><br><br>
+                    <label for="tname">Termék ára:</label><br>
+                    <input type="text" id="tname" value=""><br><br>
+                    <input type="submit" value="Termék hozzáadása">
+                  </form> 
+            </div>
+            <div>
+                <p>új admin regisztrállása a rendszerben</p>
+            </div>
+        </div>
         <footer>Minden jog fenntartva!</footer>
     </main>
 </body>
