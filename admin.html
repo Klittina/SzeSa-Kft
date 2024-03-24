@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./CSS/alap.css">
+    <link rel="stylesheet" href="./CSS/admin.css">
+    <link rel="stylesheet" href="./CSS/bejelentkezes.css">
     <title>Admin felület</title>
 </head>
 <body>
@@ -32,7 +33,43 @@
                   </form> 
             </div>
             <div>
-                <p>új admin regisztrállása a rendszerben</p>
+                <div class="regbejform">
+                    <form action="/action_page.php">
+                        <div class="container">
+                          <h1>Új admin regisztrálása</h1>
+                          <hr>
+                          <label for="uname"><b>Vezetéknév:</b></label>
+                            <input type="text" placeholder="" name="uname" required>
+
+                            <label for="uname"><b>Keresztnév:</b></label>
+                            <input type="text" placeholder="" name="uname" required>
+
+                            <label for="uname"><b>Felhasználónév:</b></label>
+                            <input type="text" placeholder="" name="uname" required>
+
+                          <label for="email"><b>E-mail cím:</b></label>
+                          <input type="text" placeholder="" name="email" id="email" required>
+
+                          <label for="feladat"><b>Feladatkör:</b></label><br>
+                          <input type="radio" id="feladat" name="feladat" value="HR">
+                          <label for="html">HR</label><br>
+                          <input type="radio" id="css" name="feladat" value="Fejlesztő">
+                          <label for="css">Fejlesztő</label><br>
+                          <input type="radio" id="javascript" name="feladat" value="Tesztelő">
+                          <label for="javascript">Tesztelő</label><br>
+                          <input type="radio" id="css" name="feladat" value="Scrum Master">
+                          <label for="css">Scrum Master</label><br>
+
+                          <label for="psw"><b>Jelszó:</b></label>
+                          <input type="password" placeholder="" name="psw" id="psw" required>
+                      
+                          <label for="psw-repeat"><b>Erősítse meg jelszavát:</b></label>
+                          <input type="password" placeholder="" name="psw-repeat" id="psw-repeat" required>
+                          <hr>
+                          <button type="submit" class="registerbtn">Regisztráció</button>
+                        </div>
+                      </form>
+                </div>
             </div>
         </div>
         <footer>Minden jog fenntartva!</footer>
