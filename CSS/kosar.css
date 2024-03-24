@@ -1,0 +1,52 @@
+body{
+    width: auto;
+    margin: auto;
+}
+
+main{
+    width: 100%;
+    display: grid;
+    margin: auto;
+    grid-template-areas: "h h h h h"
+                        "n n n n n"
+                        "d d d d d"
+                        "f f f f f";
+}
+header{
+    width: 100%;
+    grid-area: h;
+    background-color: aqua;
+}
+nav{
+    width: 100%;
+    grid-area: n;
+    background-color: aquamarine;
+}
+.menu{
+    display: flex;
+    flex-direction: row;
+}
+.menu li{
+    list-style-type: none;
+    flex: 1;
+}
+footer{
+    width:100%;
+    grid-area: f;
+    background-color: bisque;
+    left: 0;
+    bottom: 0;
+    text-align: center;
+}
+
+#kosar{
+    width: 70%;
+    margin: auto;
+    grid-area: d;
+}
+table{
+    margin: auto;
+}
+table, th, td {
+    border:1px solid black;
+  }
