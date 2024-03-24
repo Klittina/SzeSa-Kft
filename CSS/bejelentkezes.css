@@ -52,9 +52,9 @@ footer{
   width:100%;
   grid-area: f;
   background-color: gray;
-  text-align: center;
   left: 0;
   bottom: 0;
+  text-align: center;
   margin-top: 100px;
 }
 
@@ -92,15 +92,4 @@ span.psw {
 }
 .regbejform{
   margin: auto;
-}
-
-/* Change styles for span and cancel button on extra small screens */
-@media screen and (max-width: 300px) {
-  span.psw {
-     display: block;
-     float: none;
-  }
-  .cancelbtn {
-     width: 100%;
-  }
 }

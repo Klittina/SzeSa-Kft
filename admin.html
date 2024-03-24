@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="./kepek/Képernyőkép 2024-03-24 193956.png">
     <link rel="stylesheet" href="./CSS/admin.css">
-    <link rel="stylesheet" href="./CSS/bejelentkezes.css">
     <title>Admin felület</title>
 </head>
 <body>
@@ -23,31 +23,35 @@
             </ul>
         </nav>
         <div class="adminfunkciok">
-            <div>
+            <div class="ujtermek">
                 <form action="/action_page.php">
+                    <h1>Új termék felvétele</h1>
                     <label for="tname">Termék neve:</label><br>
                     <input type="text" id="tname" value=""><br><br>
-                    <label for="tname">Termék képe:</label><br>
+                    <label for="tcikkszam">Termék cikkszáma:</label><br>
+                    <input type="text" id="tname" value=""><br><br>
+                    <label for="tkep">Termék képe:</label><br>
                     <input type="file" id="tpicture" name="tpicture" accept="image/png, image/jpeg" /><br><br>
-                    <label for="tname">Termék ára:</label><br>
+                    <label for="tar">Termék ára:</label><br>
                     <input type="text" id="tname" value=""><br><br>
                     <input type="submit" value="Termék hozzáadása">
                     <input type="reset" value="Mégse">
                   </form> 
             </div>
-            <div>
+            <hr>
+            <div id="admin">
                 <div class="regbejform">
                     <form action="/action_page.php">
                         <div class="container">
                           <h1>Új admin regisztrálása</h1>
                           <hr>
-                          <label for="uname"><b>Vezetéknév:</b></label>
+                          <label for="vezeteknev"><b>Vezetéknév:</b></label>
                             <input type="text" placeholder="" name="uname" required>
 
-                            <label for="uname"><b>Keresztnév:</b></label>
+                            <label for="keresztnev"><b>Keresztnév:</b></label>
                             <input type="text" placeholder="" name="uname" required>
 
-                            <label for="uname"><b>Felhasználónév:</b></label>
+                            <label for="felhasznalonev"><b>Felhasználónév:</b></label>
                             <input type="text" placeholder="" name="uname" required>
 
                           <label for="email"><b>E-mail cím:</b></label>
@@ -73,9 +77,6 @@
                         </div>
                       </form>
                 </div>
-            </div>
-            <div id="haszonkulcs">
-
             </div>
         </div>
         <footer>

@@ -9,7 +9,7 @@ main{
     margin: auto;
     grid-template-areas: "h h h h h"
                         "n n n n n"
-                        "ar ar ar ar as"
+                        "ar ar ar ar ar"
                         "f f f f f";
 }
 header{
@@ -49,10 +49,11 @@ nav {
     background-color: lightgray;
 }
 article{
-    width: 100%;
+    width: 80%;
     grid-area: ar;
     background-color: rgb(255, 255, 255);
     display: table;
+    margin: auto;
 }
 
 article div{
@@ -69,15 +70,6 @@ article div{
     align-items: center;
     text-align: center;
     height:340px;
-}
-article div button{
-    float: right;
-    margin-bottom: 3%;
-}
-  
-aside{
-    width:100%;
-    background-color: darkgray;
 }
 footer{
     width:100%;
