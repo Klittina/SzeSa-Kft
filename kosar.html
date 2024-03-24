@@ -33,14 +33,22 @@
                 <td>Apple MacBook Air M1</td>
                 <td>6001356</td>
                 <td>585.000 Ft</td>
-                <td>3</td>
+                <td>
+                    <button class="minus">-</button>
+                    <span class="quantity">3</span>
+                    <button class="plus">+</button>
+                </td>
                 <td>1.755.000 Ft</td>
                 </tr>
                 <tr>
                 <td>Dell XPS 13</td>
                 <td>053489</td>
                 <td>320.000 Ft</td>
-                <td>1</td>
+                <td>
+                    <button class="minus">-</button>
+                    <span class="quantity">1</span>
+                    <button class="plus">+</button>
+                </td>
                 <td>320.000 Ft</td>
                 </tr>
                 <tr>
@@ -66,6 +74,39 @@
                 </tbody>
                 </table>
         </div>
+        <script>
+            // Keresünk minden minus gombot
+            var minusButtons = document.querySelectorAll('.minus');
+        
+            // Minden minus gombhoz hozzáadjuk az eseménykezelőt
+            minusButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    // Keresünk az adott sorban egy quantity osztályú elemet
+                    var quantityElement = this.parentElement.querySelector('.quantity');
+                    // Csökkentjük az értéket, de legalább 1 legyen
+                    var quantity = parseInt(quantityElement.textContent);
+                    if (quantity > 1) {
+                        quantity--;
+                        quantityElement.textContent = quantity;
+                    }
+                });
+            });
+        
+            // Keresünk minden plus gombot
+            var plusButtons = document.querySelectorAll('.plus');
+        
+            // Minden plus gombhoz hozzáadjuk az eseménykezelőt
+            plusButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    // Keresünk az adott sorban egy quantity osztályú elemet
+                    var quantityElement = this.parentElement.querySelector('.quantity');
+                    // Növeljük az értéket
+                    var quantity = parseInt(quantityElement.textContent);
+                    quantity++;
+                    quantityElement.textContent = quantity;
+                });
+            });
+        </script>
         <footer>
             <p>Minden jog fenntartva!</p>
             <p>Szesa Kft</p>

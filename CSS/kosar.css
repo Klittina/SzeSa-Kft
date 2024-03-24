@@ -61,3 +61,59 @@ table, th, td {
 #kicsi{
     width: 100%;
 }
+#kosar table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#kosar th, #kosar td {
+    padding: 12px;
+    text-align: left;
+}
+
+#kosar th {
+    background-color: #f2f2f2;
+    color: #333;
+    font-weight: bold;
+    border-bottom: 2px solid #ddd;
+    text-align: center;
+}
+
+#kosar td {
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+#kosar tbody tr:last-child td {
+    border-bottom: none;
+}
+
+#kosar tbody tr:last-child td table {
+    width: 100%;
+}
+
+#kosar tbody tr:last-child td table td {
+    border: none;
+}
+
+#kosar tbody tr:last-child td table tr:last-child td {
+    border-top: 1px solid #ddd;
+}
+
+#kosar tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#kosar button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#kosar button:hover {
+    background-color: #45a049;
+}
