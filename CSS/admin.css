@@ -15,20 +15,38 @@ main{
 header{
     width: 100%;
     grid-area: h;
-    background-color: aqua;
+    background-color: white;
+    text-align: center;
 }
-nav{
+nav {
     width: 100%;
     grid-area: n;
-    background-color: aquamarine;
+    background-color: rgb(192, 192, 192);
+    margin-bottom: 100px;
 }
-.menu{
+
+.menu {
     display: flex;
     flex-direction: row;
+    padding: 0;
+    margin: 0;
+    text-align: center; /* Menüpontok középre igazítása */
 }
-.menu li{
+
+.menu li {
     list-style-type: none;
     flex: 1;
+}
+
+.menu li a {
+    text-decoration: none;
+    color: black;
+    display: block;
+    padding: 10px;
+    transition: background-color 0.3s;
+}
+.menu li a:hover {
+    background-color: lightgray;
 }
 article{
     width: 100%;
@@ -53,4 +71,5 @@ footer{
     left: 0;
     bottom: 0;
     text-align: center;
+    margin-top: 100px;
 }

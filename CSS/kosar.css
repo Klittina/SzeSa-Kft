@@ -15,42 +15,54 @@ main{
 header{
     width: 100%;
     grid-area: h;
-    background-color: aqua;
+    background-color: white;
+    text-align: center;
 }
-nav{
+nav {
     width: 100%;
     grid-area: n;
-    background-color: aquamarine;
+    background-color: rgb(192, 192, 192);
+    margin-bottom: 100px;
 }
-.menu{
+
+.menu {
     display: flex;
     flex-direction: row;
+    padding: 0;
+    margin: 0;
+    text-align: center; /* Menüpontok középre igazítása */
 }
-.menu li{
+
+.menu li {
     list-style-type: none;
     flex: 1;
+}
+
+.menu li a {
+    text-decoration: none;
+    color: black;
+    display: block;
+    padding: 10px;
+    transition: background-color 0.3s;
+}
+.menu li a:hover {
+    background-color: lightgray;
 }
 footer{
     width:100%;
     grid-area: f;
-    background-color: bisque;
+    background-color: darkgray;
     left: 0;
     bottom: 0;
     text-align: center;
-    position: fixed;
-    left: 0;
-    bottom: 0;
+    left: 0;   
+    margin-top: 100px;             
 }
 
 #kosar{
     width: 100%;
     margin: auto;
     grid-area: d; 
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
 }
 table{
     margin: auto;
@@ -105,7 +117,7 @@ table, th, td {
 }
 
 #kosar button {
-    background-color: #4caf50;
+    background-color: #515151;
     color: white;
     border: none;
     padding: 8px 12px;

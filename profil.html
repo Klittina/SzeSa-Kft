@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./CSS/alap.css">
+    <link rel="stylesheet" href="./CSS/profilom.css">
     <title>Profilom</title>
 </head>
 <body>
     <main>
-        <header><h1>SzeSa KFT</h1></header>
-        <nav>
+        <header>
             <img src="./kepek/Képernyőkép 2024-03-24 193956.png" alt="">
+        </header>
+        <nav>
             <ul class="menu">
                 <li><a href="index.html">Főoldal</a></li>
                 <li><a href="bejelentkezes.html">Bejelentkezés</a></li>
@@ -20,15 +21,40 @@
                 <li><a href="admin.html">Admin</a></li>
             </ul>
         </nav>
-        <div>
-            <div id="adatok">
-
+        <div class="profilom">
+            <div id="adataim">
+                <form action="/action_page.php">
+                    <div class="container">
+                      <h1>Adataim</h1>
+                      <hr>
+                      <label for="uname"><b>Vezetéknév:</b></label>
+                        <input type="text" placeholder="Szedlár" name="uname" required>
+                        <label for="uname"><b>Keresztnév:</b></label>
+                        <input type="text" placeholder="Krisztina" name="uname" required>
+                        <label for="uname"><b>Felhasználónév:</b></label>
+                        <input type="text" placeholder="Klittina" name="uname" required>
+                      <label for="email"><b>E-mail cím:</b></label>
+                      <input type="text" placeholder="szedlarkrisztina@gmail.com" name="email" id="email" required>
+                  
+                      <label for="psw"><b>Új jelszó:</b></label>
+                      <input type="password" placeholder="" name="psw" id="psw" required>
+                  
+                      <label for="psw-repeat"><b>Erősítse meg új jelszavát:</b></label>
+                      <input type="password" placeholder="" name="psw-repeat" id="psw-repeat" required>
+                      <hr>
+                      <button type="submit" class="registerbtn">Frissitem</button>
+                    </div>
+                  </form>
             </div>
+            <hr>
             <div id="korabbirendelesek">
-                <h1>Még nem volt rendelése.</h1>
+                <h1>Itt jelennek majd meg a korábbi rendelései.</h1>
             </div>
         </div>
-        <footer>Minden jog fenntartva!</footer>
+        <footer>
+            <p>Minden jog fenntartva!</p>
+            <p>Szesa Kft</p>
+        </footer>
     </main>
 </body>
 </html>
