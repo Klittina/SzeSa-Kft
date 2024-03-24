@@ -37,12 +37,20 @@ footer{
     left: 0;
     bottom: 0;
     text-align: center;
+    position: fixed;
+    left: 0;
+    bottom: 0;
 }
 
 #kosar{
-    width: 70%;
+    width: 100%;
     margin: auto;
-    grid-area: d;
+    grid-area: d; 
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
 table{
     margin: auto;
@@ -50,3 +58,6 @@ table{
 table, th, td {
     border:1px solid black;
   }
+#kicsi{
+    width: 100%;
+}
