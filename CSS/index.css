@@ -30,8 +30,7 @@ article{
     grid-area: ar;
     background-color: azure;
     display: table;
-}
-article div{
+}article div{
     float: left;
     width: 32.8%;
     margin: 2px;
@@ -40,11 +39,9 @@ article div{
 }
 aside{
     width:100%;
-    grid-area: as;
     background-color: blueviolet;
 }
 footer{
     width:100%;
-    grid-area: f;
     background-color: bisque;
 }

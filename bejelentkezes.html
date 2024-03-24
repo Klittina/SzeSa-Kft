@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="alap.css">
+    <link rel="stylesheet" href="./CSS/alap.css">
     <link rel="stylesheet" href="./CSS/bejelentkezes.css">
     <title>Bejelentkezés</title>
 </head>
@@ -20,27 +20,32 @@
                 <li><a href="admin.html">Admin</a></li>
             </ul>
         </nav>
-        <div>
+        <div class="regbejform">
           <form action="/action_page.php" method="post">
               <div class="container">
+                <h1>Bejelentkezés</h1>
+                <hr>
                 <label for="uname"><b>Felhasználónév:</b></label>
                 <input type="text" placeholder="" name="uname" required>
             
                 <label for="psw"><b>Jelszó:</b></label>
                 <input type="password" placeholder="" name="psw" required>
-                    
+                
+                <hr>
+                
                 <button type="submit">Bejelentkezés</button>
                 <label>
                   <input type="checkbox" checked="checked" name="remember">Emlékezz rám.
                 </label>
-              </div>
-            
-              <div class="container" style="background-color:#f1f1f1">
-                <span class="psw"><a href="regisztracio.html">Regisztrájon.</a></span>
+              </div><div class="container signin">
+                <p>Még nincs fiókja?<a href="regisztracio.html">Regtisztráljon</a>.</p>
               </div>
             </form>
         </div>
-        <footer>Minden jog fenntartva!</footer>
+        <footer class="bejel">
+          <p>Minden jog fenntartva!</p>
+          <p>Szesa Kft</p>
+        </footer>
     </main>
 </body>
 </html>

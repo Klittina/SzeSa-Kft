@@ -1,3 +1,47 @@
+main{
+  width: 100%;
+  display: grid;
+  margin: auto;
+  grid-template-areas: "h h h h h"
+                      "n n n n n"
+                      "d d d d d"
+                      "f f f f f";
+}
+header{
+  width: 100%;
+  grid-area: h;
+  background-color: aqua;
+}
+nav{
+  width: 100%;
+  grid-area: n;
+  background-color: aquamarine;
+}
+.menu{
+  display: flex;
+  flex-direction: row;
+}
+.menu li{
+  list-style-type: none;
+  flex: 1;
+}
+.regbejform{
+  width: 60%;
+  grid-area: d;
+  background-color: azure;
+}
+footer{
+  width:100%;
+  grid-area: f;
+  background-color: bisque;
+  text-align: center;
+}
+.bejel{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+}
+
 form {border: 3px solid #f1f1f1;}
 
 input[type=text], input[type=password] {
@@ -37,6 +81,9 @@ button:hover {
 span.psw {
   float: right;
   padding-top: 16px;
+}
+.regbejform{
+  margin: auto;
 }
 
 /* Change styles for span and cancel button on extra small screens */
