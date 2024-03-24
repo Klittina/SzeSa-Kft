@@ -1,3 +1,8 @@
+body{
+    width: auto;
+    margin: auto;
+}
+
 main{
     width: 100%;
     display: grid;
@@ -30,18 +35,33 @@ article{
     grid-area: ar;
     background-color: azure;
     display: table;
-}article div{
+}
+
+article div{
     float: left;
     width: 32.8%;
-    margin: 2px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-bottom: 8px;
     border: 0.5px solid black;
-    align-items:center;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height:340px;
 }
+  
 aside{
     width:100%;
     background-color: blueviolet;
 }
 footer{
     width:100%;
+    grid-area: f;
     background-color: bisque;
+    left: 0;
+    bottom: 0;
+    text-align: center;
 }
