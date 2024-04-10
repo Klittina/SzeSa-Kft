@@ -1,25 +1,34 @@
+<?php
+  session_start();
+?>
 <!DOCTYPE html>
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="./kepek/Képernyőkép 2024-03-24 193956.png">
+    <link rel="icon" type="image/x-icon" href="./kepek/logo.png">
     <link rel="stylesheet" href="./CSS/bejelentkezes.css">
     <title>Bejelentkezés</title>
 </head>
 <body>
     <main>
       <header>
-          <img src="./kepek/Képernyőkép 2024-03-24 193956.png" alt="">
+          <img src="./kepek/logo.png" alt="">
       </header>
         <nav>
-            <ul class="menu">
-                <li><a href="index.html">Főoldal</a></li>
-                <li><a href="bejelentkezes.html">Bejelentkezés</a></li>
-                <li><a href="regisztracio.html">Regisztráció</a></li>
-                <li><a href="profil.html">Profilom</a></li>
-                <li><a href="kosar.html">Kosár</a></li>
-                <li><a href="admin.html">Admin</a></li>
+        <ul class="menu">
+                <li><a href="index.php">Főoldal</a></li>
+                 <?php if (isset($_SESSION["user"])) { ?>
+                   <li><a href="profil.php">Profilom</a></li>
+                   <li><a href="./php/kijelentkezes.php">Kijelentkezés</a></li>
+                   <?php if ($_SESSION["user"]["jogosultsag"] == "a") { ?>
+        <!-- Megjelenítjük az admin fület, ha a felhasználó admin jogosultsággal rendelkezik -->
+        <li><a href="admin.php">Admin</a></li>
+    <?php } ?>
+                 <?php } else { ?>
+                   <li><a href="bejelentkezes.php">Bejelentkezés</a></li>
+                   <li><a href="regisztracio.php">Regisztráció</a></li>
+                 <?php } ?>
             </ul>
         </nav>
         <div class="regbejform">

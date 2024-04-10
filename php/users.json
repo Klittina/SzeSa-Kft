@@ -1,11 +1,12 @@
 {
     "users": [
-            {
-                "felhasznalonev": "Klittina",
-                "jelszo": "$2y$10$s9OLALnvP224.5vIEURoeO8EAeY.C1TlzDaQ0HS6ijMhjsg0aVb3C",
-                "vezeteknev": "Szedlár",
-                "keresztnev": "Krisztina",
-                "email": "kankokft@teszt.com"
-            }
-        ]
+        {
+            "felhasznalonev": "Klittina",
+            "jelszo": "$2y$10$JMdVefrYJoYaj5hbC3BY2.83J\/dK.eTq9Sym4qzdSjaPEVECHG76q",
+            "vezeteknev": "Szedlár",
+            "keresztnev": "Krisztina",
+            "email": "kankokft@teszt.com",
+            "jogosultsag": "f"
+        }
+    ]
 }

@@ -1,6 +1,7 @@
 
 <?php
 session_start(); 
+echo session_id() . "<br/>";
 include "funkciok.php";         
 $fiokok = load_users("users.json"); 
 
@@ -19,6 +20,7 @@ $fiokok = load_users("users.json");
       foreach ($fiokok["users"] as $fiok) { 
         if ($fiok["felhasznalonev"] === $felhasznalonev && password_verify($jelszo, $fiok["jelszo"])) {
           $uzenet = "Sikeres belépés!"; 
+          header("Location: ../index.php");
           $_SESSION["user"] = $fiok;   
           break; 
          }

@@ -5,7 +5,7 @@
   // űrlapfeldolgozás
     $hibak = [];
 
-  if (isset($_POST["regisztral"])) {   // ha az űrlapot elküldték...
+  if (isset($_POST["adminregisztral"])) {   // ha az űrlapot elküldték...
     // a kötelezően kitöltendő mezők ellenőrzése
     echo "<p>müködik</p>";
     if (!isset($_POST["felhasznalonev"]) || trim($_POST["felhasznalonev"]) === "")
@@ -48,7 +48,7 @@
         "vezeteknev" => $vezeteknev,
         "keresztnev" => $keresztnev, 
         "email" => $email,
-        "jogosultsag" => "f"
+        "jogosultsag" => "a"
       ];
       // elmentjük a kibővített $fiokok tömböt a users.json fájlba
       save_users("users.json", $fiok);
@@ -57,7 +57,7 @@
     
     if (isset($siker) && $siker === TRUE) {  // ha nem volt hiba, akkor a regisztráció sikeres
         echo "<p>Sikeres regisztráció!</p>";
-        header("Location: ../index.php"); //SIkeres bejelentkezés esetén továbbítja a felhasználót a főoldalra
+        header("Location: ../admin.php"); //SIkeres bejelentkezés esetén továbbítja a felhasználót a főoldalra
       } else {                                // az esetleges hibákat kiírjuk egy-egy bekezdésben
         foreach ($hibak as $hiba) {
           echo "<p>" . $hiba . "</p>";
