@@ -1,8 +1,7 @@
 <?php
-  // a rendszer által ismert felhasználókat tartalmazó 2-dimenziós tömb
-  $fiokok = [
-    ["felhasznalonev" => "admin", "jelszo" => "admin123", "vezeteknev" => "Nagy", "keresztnev" => "Árpi", "email" => "admin@admin.com",]
-  ];
+ include "funkciok.php";              // beágyazzuk a load_users() és save_users() függvényeket tartalmazó PHP fájlt
+ $fiokok = load_users("felhasznalok.json"); // betöltjük a regisztrált felhasználók adatait, és eltároljuk őket a $fiokok változóban
+
   // űrlapfeldolgozás
     $hibak = [];
 
@@ -25,10 +24,10 @@
     $email = $_POST["email"];
 
     // foglalt felhasználónév ellenőrzése
-    foreach ($fiokok as $fiok) {
+   /* foreach ($fiokok as $fiok) {
       if ($fiok["felhasznalonev"] === $felhasznalonev)  // ha egy regisztrált felhasználó neve megegyezik az űrlapon megadott névvel...
         $hibak[] = "A felhasználónév már foglalt!";
-    }
+    }*/
 
     // túl rövid jelszó
     if (strlen($jelszo) < 5)
@@ -41,7 +40,17 @@
       $siker = FALSE;
     // regisztráció sikerességének ellenőrzése
     if (count($hibak) === 0) {   // ha nem történt hiba a regisztráció során, hozzáadjuk az újonnan regisztrált felhasználót a $fiokok tömbhöz
-      $fiokok[] = ["felhasznalonev" => $felhasznalonev, "jelszo" => $jelszo, "keresztnev" => $keresztnev, "vezeteknev" => $vezeteknev, "email" => $email];
+      $jelszo = password_hash($jelszo, PASSWORD_DEFAULT);       // jelszó hashelése
+      // hozzáfűzzük az újonnan regisztrált felhasználó adatait a rendszer által ismert felhasználókat tároló tömbhöz
+      $fiok[] = [
+        "felhasznalonev" => $felhasznalonev, 
+        "jelszo" => $jelszo, 
+        "vezeteknev" => $vezeteknev,
+        "keresztnev" => $keresztnev, 
+        "email" => $email
+      ];
+      // elmentjük a kibővített $fiokok tömböt a users.json fájlba
+      save_users("felhasznalok.json", $fiok);
       $siker = TRUE;
     }
     
