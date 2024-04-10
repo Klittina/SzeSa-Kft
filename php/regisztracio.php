@@ -1,6 +1,6 @@
 <?php
  include "funkciok.php";              // beágyazzuk a load_users() és save_users() függvényeket tartalmazó PHP fájlt
- $fiokok = load_users("felhasznalok.json"); // betöltjük a regisztrált felhasználók adatait, és eltároljuk őket a $fiokok változóban
+ $fiokok = load_users("users.json"); // betöltjük a regisztrált felhasználók adatait, és eltároljuk őket a $fiokok változóban
 
   // űrlapfeldolgozás
     $hibak = [];
@@ -50,7 +50,7 @@
         "email" => $email
       ];
       // elmentjük a kibővített $fiokok tömböt a users.json fájlba
-      save_users("felhasznalok.json", $fiok);
+      save_users("users.json", $fiok);
       $siker = TRUE;
     }
     

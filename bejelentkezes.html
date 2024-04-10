@@ -23,19 +23,19 @@
             </ul>
         </nav>
         <div class="regbejform">
-          <form action="./php/bejelentkezes.php " method="POST">
+          <form action="./php/bejelentkezes.php" method="POST">
               <div class="container">
                 <h1>Bejelentkezés</h1>
                 <hr>
                 <label for="felhasznalonev"><b>Felhasználónév:</b></label>
-                <input type="text" placeholder="" name="uname" required>
+                <input type="text" name="felhasznalonev" required>
             
-                <label for="psw"><b>Jelszó:</b></label>
-                <input type="password" placeholder="" name="psw" required>
+                <label for="jelszo"><b>Jelszó:</b></label>
+                <input type="password"  name="jelszo" required>
                 
                 <hr>
                 
-                <button type="submit">Bejelentkezés</button>
+                <button type="submit" name="bejelentkezik">Bejelentkezés</button>
                 <label>
                   <input type="checkbox" checked="checked" name="remember">Emlékezz rám.
                 </label>

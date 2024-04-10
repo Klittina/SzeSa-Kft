@@ -1,13 +1,11 @@
 {
-    "felhasznalok": [
-        [
+    "users": [
             {
                 "felhasznalonev": "Klittina",
-                "jelszo": "$2y$10$t8DvdZW6uLz6Pg2mXF9R7..1vGGdug9pDrRde2M0eF2HPy5c9pJfa",
+                "jelszo": "$2y$10$s9OLALnvP224.5vIEURoeO8EAeY.C1TlzDaQ0HS6ijMhjsg0aVb3C",
                 "vezeteknev": "Szedlár",
                 "keresztnev": "Krisztina",
                 "email": "kankokft@teszt.com"
             }
         ]
-    ]
 }

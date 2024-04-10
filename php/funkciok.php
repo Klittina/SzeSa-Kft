@@ -2,7 +2,7 @@
   function save_users(string $path, array $data) {
     $users = load_users($path);
 
-    $users["felhasznalok"][] = $data;
+    $users["users"] = $data;
 
     $json_data = json_encode($users, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
