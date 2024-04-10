@@ -23,26 +23,26 @@
             </ul>
         </nav>
         <div class="regbejform">
-            <form action="/action_page.php">
+            <form action="./php/regisztracio.php" method="POST">
                 <div class="container">
                   <h1>Regisztráció</h1>
                   <hr>
                   <label for="vezeteknev"><b>Vezetéknév:</b></label>
-                    <input type="text" placeholder="" name="uname" required>
+                    <input type="text" placeholder="" name="vezeteknev" required>
                     <label for="keresztnev"><b>Keresztnév:</b></label>
-                    <input type="text" placeholder="" name="uname" required>
+                    <input type="text" placeholder="" name="keresztnev" required>
                     <label for="felhasznalonev"><b>Felhasználónév:</b></label>
-                    <input type="text" placeholder="" name="uname" required>
+                    <input type="text" placeholder="" name="felhasznalonev" required>
                   <label for="email"><b>E-mail cím:</b></label>
                   <input type="text" placeholder="" name="email" id="email" required>
               
-                  <label for="psw"><b>Jelszó:</b></label>
-                  <input type="password" placeholder="" name="psw" id="psw" required>
+                  <label for="jelszo"><b>Jelszó:</b></label>
+                  <input type="password" placeholder="" name="jelszo" id="psw" required>
               
-                  <label for="psw-repeat"><b>Erősítse meg jelszavát:</b></label>
-                  <input type="password" placeholder="" name="psw-repeat" id="psw-repeat" required>
+                  <label for="jelszo2"><b>Erősítse meg jelszavát:</b></label>
+                  <input type="password" placeholder="" name="jelszo2" id="psw-repeat" required>
                   <hr>
-                  <button type="submit" class="registerbtn">Regisztráció</button>
+                  <button type="submit" name="regisztral" class="registerbtn">Regisztráció</button>
                 </div>
                 
                 <div class="container signin">
