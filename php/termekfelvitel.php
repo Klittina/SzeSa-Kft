@@ -1,6 +1,6 @@
 <?php
 include "funkciok.php";
-$termekek = load_products("termekek.json");
+$termekek = load_products("../json/termekek.json");
 
 $hibak = [];
 
@@ -39,14 +39,14 @@ if (isset($_POST["ujtermek"])) {
     }
 
     if (count($hibak) === 0) { 
-        $termeklista = load_products("termekek.json");
+        $termeklista = load_products("../json/termekek.json");
 
         $ujtermek = [
             "megnevezes" => $megnevezes, 
             "ar" => $ar,
             "kep" => $kep
         ];
-        save_products("termekek.json", $ujtermek);
+        save_products("../json/termekek.json", $ujtermek);
 
         $siker = true;
     }

@@ -20,6 +20,7 @@
                 <li><a href="index.php">Főoldal</a></li>
                  <?php if (isset($_SESSION["user"])) { ?>
                    <li><a href="profil.php">Profilom</a></li>
+                   <li><a href="kosar.php">Kosár</a></li>
                    <li><a href="./php/kijelentkezes.php">Kijelentkezés</a></li>
                    <?php if ($_SESSION["user"]["jogosultsag"] == 'a') { ?>
         <!-- Megjelenítjük az admin fület, ha a felhasználó admin jogosultsággal rendelkezik -->

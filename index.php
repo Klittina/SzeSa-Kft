@@ -20,6 +20,7 @@
                 <li><a href="index.php">Főoldal</a></li>
                  <?php if (isset($_SESSION["user"])) { ?>
                    <li><a href="profil.php">Profilom</a></li>
+                   <li><a href="kosar.php">Kosár</a></li>
                    <li><a href="./php/kijelentkezes.php">Kijelentkezés</a></li>
                    <?php if ($_SESSION["user"]["jogosultsag"] == "a") { ?>
                     <li><a href="admin.php">Admin</a></li>
@@ -33,7 +34,7 @@
         <article>
         <?php
         // Betöltjük a termékek listáját a JSON fájlból
-        $termekek_json = file_get_contents('./php/termekek.json');
+        $termekek_json = file_get_contents('./json/termekek.json');
         $termekek = json_decode($termekek_json, true);
 
         // Ellenőrizzük, hogy sikerült-e betölteni az adatokat

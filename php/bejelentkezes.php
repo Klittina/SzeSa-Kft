@@ -3,7 +3,7 @@
 session_start(); 
 echo session_id() . "<br/>";
 include "funkciok.php";         
-$fiokok = load_users("users.json"); 
+$fiokok = load_users("../json/users.json"); 
 
   $uzenet = "";      
 
