@@ -31,66 +31,31 @@
             </ul>
         </nav>
         <article>
-            <div>
-                <h1 class="nev">HP 15s-fq2005nha</h1>
-                <img src="kepek/kep0.jpg" alt="" style="width: 40%;">
-                <p class="ar">200.000 Ft</p>
-                <button class="kosarbarak">Kosárhoz adás</button>
-            </div>
-            <div>
-                <h1 class="nev">MSI Business NB</h1>
-                <img src="kepek/kep6.jpg" alt="" style="width: 40%;">
-                <p class="ar">150.000 Ft</p>
-                <button class="kosarbarak">Kosárhoz adás</button>
-            </div>
-            <div>
-                <h1 class="nev">Dell Inspiron 3511</h1>
-                <img src="kepek/kep17.jpg" alt="" style="width: 40%;">
-                <p class="ar">200.000 Ft</p>
-                <button class="kosarbarak">Kosárhoz adás</button>
-            </div>
-            <div>
-                <h1 class="nev">HP 250 G8</h1>
-                <img src="kepek/kep22.jpg" alt="" style="width: 40%;">
-                <p class="ar">300.000 Ft</p>
-                <button class="kosarbarak">Kosárhoz adás</button>
-            </div>
-            <div>
-                <h1 class="nev">Dell Inspiron 3521-i3400</h1>
-                <img src="kepek/kep28.jpg" alt="" style="width: 40%;">
-                <p class="ar">100.000 Ft</p>
-                <button class="kosarbarak">Kosárhoz adás</button>
-            </div>
-            <div>
-                <h1 class="nev">Dell XPS 13</h1>
-                <img src="kepek/kep32.jpg" alt="" style="width: 40%;">
-                <p class="ar">320.000 Ft</p>
-                <button class="kosarbarak">Kosárhoz adás</button>
-            </div>
-            <div>
-                <h1 class="nev">Acer Swift 3 SF314-57</h1>
-                <img src="kepek/kep37.jpg" alt="" style="width: 40%;">
-                <p class="ar">180.000 Ft</p>
-                <button class="kosarbarak">Kosárhoz adás</button>
-            </div>
-            <div>
-                <h1 class="nev">LENOVO ThinkPad L15</h1>
-                <img src="kepek/kep11.jpg" alt="" style="width: 40%;">
-                <p class="ar">400.000 Ft</p>
-                <button class="kosarbarak">Kosárhoz adás</button>
-            </div>
-            <div>
-                <h1 class="nev">Lenovo IdeaPad 5 Pro</h1>
-                <img src="./kepek/kep36.jpg" alt="" style="width: 40%;">
-                <p class="ar">350.000 Ft</p>
-                <button class="kosarbarak">Kosárhoz adás</button>
-            </div>
-            <div>
-                <h1 class="nev">Apple MacBook Air M1</h1>
-                <img src="./kepek/kep41.jpg" alt="" style="width: 40%;">
-                <p class="ar">585.000 Ft</p>
-                <button class="kosarbarak">Kosárhoz adás</button>
-            </div>
+        <?php
+        // Betöltjük a termékek listáját a JSON fájlból
+        $termekek_json = file_get_contents('./php/termekek.json');
+        $termekek = json_decode($termekek_json, true);
+
+        // Ellenőrizzük, hogy sikerült-e betölteni az adatokat
+        if ($termekek === null) {
+            die('Hiba történt az adatok betöltése közben.');
+        }
+
+        // Ellenőrizzük, hogy van-e legalább egy termék
+        if (empty($termekek['termekek'])) {
+            echo 'Nincsenek termékek a listában.';
+        } else {
+            // Ha vannak termékek, megjelenítjük azokat
+            foreach ($termekek['termekek'] as $termek) {
+                echo '<div class="termek">';
+                echo '  <h1 class="nev">' . $termek['megnevezes'] . '</h1>';
+                echo'<img src="'. $termek['kepek']["kep0"] .'" alt="" style="width: 40%;">';
+                echo '  <p>Ár: ' . $termek['ar'] . ' Ft</p>';
+                echo '<button class="kosarbarak">Kosárhoz adás</button>';
+                echo '</div>';
+            }
+        }
+        ?>
         </article>
         <footer>
             <p>Minden jog fenntartva!</p>
