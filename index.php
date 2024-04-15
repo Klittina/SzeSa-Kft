@@ -49,7 +49,7 @@
             foreach ($termekek['termekek'] as $termek) {
                 echo '<div class="termek">';
                 echo '  <h1 class="nev">' . $termek['megnevezes'] . '</h1>';
-                echo'<img src="'. $termek['kepek']["kep0"] .'" alt="" style="width: 40%;">';
+                echo'<img src="./kepek/'. $termek['kep'] .'" alt="" style="width: 40%;">';
                 echo '  <p>Ár: ' . $termek['ar'] . ' Ft</p>';
                 echo '<button class="kosarbarak">Kosárhoz adás</button>';
                 echo '</div>';

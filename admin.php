@@ -33,17 +33,17 @@
         </nav>
         <div class="adminfunkciok">
             <div class="ujtermek">
-                <form action="./php/termekfelvitel.php" method="POST">
+                <form action="./php/termekfelvitel.php" method="POST" enctype="multipart/form-data">
                     <h1>Új termék felvétele</h1>
-                    <label for="tname">Termék neve:</label><br>
-                    <input type="text" id="tname" value=""><br><br>
-                    <label for="tcikkszam">Termék cikkszáma:</label><br>
-                    <input type="text" id="tname" value=""><br><br>
+                    <label for="megnevezes">Termék neve:</label><br>
+                    <input type="text" id="tname" name="megnevezes"><br><br>
+                    <label for="cikkszam">Termék cikkszáma:</label><br>
+                    <input type="text" id="tname" name="cikkszam"><br><br>
                     <label for="tkep">Termék képe:</label><br>
-                    <input type="file" id="tpicture" name="tpicture" accept="image/png, image/jpeg" /><br><br>
-                    <label for="tar">Termék ára:</label><br>
-                    <input type="text" id="tname" value=""><br><br>
-                    <input type="submit" value="Termék hozzáadása">
+                    <input type="file" id="pic" name="kep" accept="image/png, image/jpeg" /><br><br>
+                    <label for="ar">Termék ára:</label><br>
+                    <input type="text" id="tname" name="ar"><br><br>
+                    <input type="submit" value="Termék hozzáadása" name="ujtermek">
                     <input type="reset" value="Mégse">
                   </form> 
             </div>
