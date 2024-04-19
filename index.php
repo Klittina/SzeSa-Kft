@@ -1,5 +1,18 @@
 <?php
   session_start();
+
+  // Ha a POST kérés tartalmazza az adatot, akkor mentsük el a session-be
+  if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['termekData'])) {
+      $termekData = $_POST['termekData'];
+      
+      // Ellenőrizzük, hogy a session változó létezik-e, ha nem, akkor hozzunk létre egy üres tömböt
+      $_SESSION['kosar'] = isset($_SESSION['kosar']) ? $_SESSION['kosar'] : array();
+      
+      // Mentsük el az adatot a session tömbbe
+      $_SESSION['kosar'][] = json_decode($termekData, true);
+      echo('$termekdata');
+  }
+  echo $_SESSION["kosar"];
 ?>
 <!DOCTYPE html>
 <html lang="hu">
@@ -51,8 +64,9 @@
                 echo '<div class="termek">';
                 echo '  <h1 class="nev">' . $termek['megnevezes'] . '</h1>';
                 echo'<img src="./kepek/'. $termek['kep'] .'" alt="" style="width: 40%;">';
-                echo '  <p>Ár: ' . $termek['ar'] . ' Ft</p>';
-                echo '<button class="kosarbarak">Kosárhoz adás</button>';
+                echo '  <p class="cikkszam">Cikkszám: ' . $termek['cikkszam'] . '</p>';
+                echo '  <p class="ar">Ár: ' . $termek['ar'] . ' Ft</p>';
+                echo '<button class="kosarbarak" data-termek=\'' . json_encode($termek) . '\'>Kosárhoz adás</button>';
                 echo '</div>';
             }
         }
@@ -63,5 +77,18 @@
             <p>Szesa Kft</p>
         </footer>
     </main>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".kosarbarak").click(function(){
+                var termekData = $(this).data('termek');
+                console.log(termekData)
+                $.post(window.location.href, {termekData: JSON.stringify(termekData)}, function(response){
+                    alert("Termék hozzáadva a kosárhoz!");
+                });
+            });
+        });
+    </script>
 </body>
 </html>
