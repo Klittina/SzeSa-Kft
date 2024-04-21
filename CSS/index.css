@@ -74,6 +74,9 @@ article div{
     text-align: center;
     height:340px;
 }
+.termek:hover{
+    background-color: rgb(244, 244, 244);
+}
 footer{
     width:100%;
     grid-area: f;

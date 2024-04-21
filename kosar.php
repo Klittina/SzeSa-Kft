@@ -170,7 +170,6 @@ $products = json_decode($product_data, true)['termekek'];
    <br>
    <form method="post" action="./php/megrendelesek.php">
    <a href="kosar.php?action=rendeles"><input type="submit" value="Rendelés megerősítése" name="ujrendeles" class="gomb"></a>
-    
         </form>
    </div>
   </div>

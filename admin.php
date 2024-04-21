@@ -42,15 +42,15 @@ if (!isset($_SESSION["user"]) && basename($_SERVER['PHP_SELF']) != 'bejelentkeze
                 <form action="./php/termekfelvitel.php" method="POST" enctype="multipart/form-data">
                     <h1>Új termék felvétele</h1>
                     <label for="megnevezes">Termék neve:</label><br>
-                    <input type="text" id="tname" name="megnevezes"><br><br>
+                    <input type="text" id="termeknev" name="megnevezes"><br><br>
                     <label for="cikkszam">Termék cikkszáma:</label><br>
-                    <input type="text" id="tname" name="cikkszam"><br><br>
+                    <input type="text" id="termekcikkszam" name="cikkszam"><br><br>
                     <label for="tkep">Termék képe:</label><br>
-                    <input type="file" id="pic" name="kep" accept="image/png, image/jpeg" /><br><br>
+                    <input type="file" id="termekkep" name="kep" accept="image/png, image/jpeg" /><br><br>
                     <label for="ar">Termék ára:</label><br>
-                    <input type="text" id="tname" name="ar"><br><br>
-                    <input type="submit" value="Termék hozzáadása" name="ujtermek">
-                    <input type="reset" value="Mégse">
+                    <input type="text" id="termekara" name="ar"><br><br>
+                    <input type="submit" value="Termék hozzáadása" name="ujtermek" class="gomb">
+                    <input type="reset" value="Mégse" class="gomb">
                   </form> 
             </div>
             <hr>
@@ -78,7 +78,7 @@ if (!isset($_SESSION["user"]) && basename($_SERVER['PHP_SELF']) != 'bejelentkeze
                           <label for="jelszo2"><b>Erősítse meg jelszavát:</b></label>
                           <input type="password" placeholder="" name="jelszo2" id="psw-repeat" required>
                           <hr>
-                          <button type="submit" class="registerbtn" name="adminregisztral">Regisztráció</button>
+                          <button type="submit" class="gomb" name="adminregisztral">Regisztráció</button>
                         </div>
                       </form>
                 </div>
