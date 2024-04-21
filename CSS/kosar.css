@@ -48,12 +48,10 @@ nav {
 .menu li a:hover {
     background-color: lightgray;
 }
-footer{
+.footer{
     width:100%;
     grid-area: f;
     background-color: gray;
-    left: 0;
-    bottom: 0;
     text-align: center;
     margin-top: 100px;
 }

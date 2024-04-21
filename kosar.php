@@ -1,46 +1,7 @@
 <?php 
-session_start();
+include './php/ujrendeles.php';
 $message = '';
 
-if(isset($_POST["add_to_cart"]))
-{
- if(isset($_COOKIE["shopping_cart"]))
- {
-  $cookie_data = stripslashes($_COOKIE['shopping_cart']);
-  $cart_data = json_decode($cookie_data, true);
- }
- else
- {
-  $cart_data = array();
- }
-
- $item_id_list = array_column($cart_data, 'item_id');
-
- if(in_array($_POST["hidden_id"], $item_id_list))
- {
-  foreach($cart_data as $keys => $values)
-  {
-   if($cart_data[$keys]["item_id"] == $_POST["hidden_id"])
-   {
-    $cart_data[$keys]["item_quantity"] = $cart_data[$keys]["item_quantity"] + $_POST["quantity"];
-   }
-  }
- }
- else
- {
-  $item_array = array(
-   'item_id'   => $_POST["hidden_id"],
-   'item_name'   => $_POST["hidden_name"],
-   'item_price'  => $_POST["hidden_price"],
-   'item_quantity'  => $_POST["quantity"]
-  );
-  $cart_data[] = $item_array;
- }
-
- $item_data = json_encode($cart_data);
- setcookie('shopping_cart', $item_data, time() + (86400 * 30));
- //header("location:index.php?success=1");
-}
 
 if(isset($_GET["action"]))
 {
@@ -76,33 +37,20 @@ if(isset($_GET["action"]))
     }
 }
 
-
-if(isset($_GET["success"]))
-{
- $message = '
- <div class="alert alert-success alert-dismissible">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    Item Added into Cart
- </div>
- ';
-}
-
 if(isset($_GET["remove"]))
 {
  $message = '
- <div class="alert alert-success alert-dismissible">
-  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-  Item removed from Cart
- </div>
+ <script>
+    alert("Törölted ezt a terméket a kosárból!");
+</script>
  ';
 }
 if(isset($_GET["clearall"]))
 {
  $message = '
- <div class="alert alert-success alert-dismissible">
-  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-  Your Shopping Cart has been clear...
- </div>
+ <script>
+    alert("A kosár tartalma törölve lett!");
+</script>
  ';
 }
 
@@ -141,13 +89,14 @@ $products = json_decode($product_data, true)['termekek'];
             <?php } ?>
         </ul>
     </nav>
-    <div style="clear:both"></div>
+    <div id="kosar">
+   <div style="clear:both"></div>
    <br />
    <h3>Kosár</h3>
+   <br>
    <div class="table-responsive">
    <?php echo $message; ?>
-   <div align="right">
-    <a href="index.php?action=clear"><b>Kosár törlése</b></a>
+    <a href="kosar.php?action=clear"><b>Kosár törlése</b></a>
    </div>
    <table class="table table-bordered">
     <tr>
@@ -168,9 +117,13 @@ $products = json_decode($product_data, true)['termekek'];
    ?>
     <tr>
      <td><?php echo $values["item_name"]; ?></td>
-     <td><?php echo $values["item_quantity"]; ?></td>
-     <td>$ <?php echo $values["item_price"]; ?></td>
-     <td>$ <?php echo number_format($values["item_quantity"] * $values["item_price"], 2);?></td>
+     <td>
+     <button class="minus">-</button>
+        <?php echo $values["item_quantity"]; ?>
+        <button class="plus">+</button>
+    </td>
+     <td> <?php echo $values["item_price"]; ?> Ft</td>
+     <td> <?php echo number_format($values["item_quantity"] * $values["item_price"]);?> Ft</td>
      <td><a href="kosar.php?action=delete&id=<?php echo $values["item_id"]; ?>"><span class="text-danger">Termék törlése</span></a></td>
     </tr>
    <?php 
@@ -179,9 +132,10 @@ $products = json_decode($product_data, true)['termekek'];
    ?>
     <tr>
      <td colspan="3" align="right">Total</td>
-     <td align="right">$ <?php echo number_format($total, 2); ?></td>
+     <td align="right"> <?php echo number_format($total); ?> Ft</td>
      <td></td>
     </tr>
+    <input type="submit" value="Rendelés megerősítése" name="ujrendeles">
    <?php
    }
    else
@@ -196,7 +150,9 @@ $products = json_decode($product_data, true)['termekek'];
    </table>
    </div>
   </div>
-    <footer>
+</div>
+
+    <footer class="footer">
         <p>Minden jog fenntartva!</p>
         <p>Szesa Kft</p>
     </footer>
