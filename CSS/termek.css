@@ -120,7 +120,7 @@ h1{
     font-size: 0.9em;
 }
 
-.komment .delete-btn {
+.torolgomb {
     background-color: #ff3333;
     color: #fff;
     border: none;

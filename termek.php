@@ -198,7 +198,7 @@ if(isset($_GET['cikkszam'])) {
                     // Ha az aktuális felhasználó adminisztrátor, megjelenítjük a törlés gombot
                     echo "<form method='post'>";
                     echo "<input type='hidden' name='comment_id' value='" . array_search($comment, $comments) . "' />";
-                    echo "<input type='submit' name='delete_comment' value='Törlés' />";
+                    echo "<input type='submit' name='delete_comment' class='torolgomb' value='Törlés' />";
                     echo "</form>";
                 }
                 echo "</div>";
