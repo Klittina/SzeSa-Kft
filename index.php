@@ -88,29 +88,28 @@ $products = json_decode($product_data, true)['termekek'];
         </nav>
         <article>
             <h1>Termékeink</h1>
-   <?php
-   foreach($products as $row)
-   {
-   ?>
-   <div class="termek">
-    <form method="post">
-    <img src="kepek/<?php echo $row["kep"]; ?>" class="img-responsive" /><br />
-
-      <h4 class="nev"><?php echo $row["megnevezes"]; ?></h4>
-
-      <h4 class="ar"><?php echo $row["ar"]; ?> Ft</h4>
-
-      <input type="number" name="quantity" value="1" class="szamotbevisz" min="1" />
-      <input type="hidden" name="hidden_name" value="<?php echo $row["megnevezes"]; ?>" />
-      <input type="hidden" name="hidden_price" value="<?php echo $row["ar"]; ?>" />
-      <input type="hidden" name="hidden_id" value="<?php echo $row["cikkszam"]; ?>" />
-      <br>
-      <input type="submit" name="add_to_cart"  class="kosarbarakgomb" value="Kosárba rak" />
-    </form>
-   </div>
-   <?php
-   }
-   ?>
+            <?php
+foreach($products as $row)
+{
+?>
+<a href="termek.php?cikkszam=<?php echo $row["cikkszam"]; ?>" class="termek-link">
+    <div class="termek">
+        <img src="kepek/<?php echo $row["kep"]; ?>" class="img-responsive" /><br />
+        <h4 class="nev"><?php echo $row["megnevezes"]; ?></h4>
+        <h4 class="ar"><?php echo $row["ar"]; ?> Ft</h4>
+        <form method="post">
+            <input type="number" name="quantity" value="1" class="szamotbevisz" min="1" />
+            <input type="hidden" name="hidden_name" value="<?php echo $row["megnevezes"]; ?>" />
+            <input type="hidden" name="hidden_price" value="<?php echo $row["ar"]; ?>" />
+            <input type="hidden" name="hidden_id" value="<?php echo $row["cikkszam"]; ?>" />
+            <br>
+            <input type="submit" name="add_to_cart"  class="kosarbarakgomb" value="Kosárba rak" />
+        </form>
+    </div>
+</a>
+<?php
+}
+?>
         </article>
         <footer>
             <p>Minden jog fenntartva!</p>

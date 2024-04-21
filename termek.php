@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 $message = '';
 
@@ -55,6 +55,26 @@ if(isset($_GET["success"]))
 $product_data = file_get_contents('./json/termekek.json');
 $products = json_decode($product_data, true)['termekek'];
 
+// Ellenőrizzük, hogy a cikkszám át lett-e adva az URL-en keresztül
+if(isset($_GET['cikkszam'])) {
+    // Cikkszám lekérése az URL-ből
+    $cikkszam = $_GET['cikkszam'];
+
+    // Fetching product data from JSON file
+    $product_data = file_get_contents('./json/termekek.json');
+    $products = json_decode($product_data, true)['termekek'];
+
+    // Keressük meg az adott cikkszámú terméket
+    $selected_product = null;
+    foreach($products as $product) {
+        if($product['cikkszam'] == $cikkszam) {
+            $selected_product = $product;
+            break;
+        }
+    }
+
+    // Ha megvan az adott termék, megjelenítjük az adatait
+    if($selected_product) {
 ?>
 <!DOCTYPE html>
 <html lang="hu">
@@ -62,8 +82,8 @@ $products = json_decode($product_data, true)['termekek'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="./kepek/logo.png">
-    <link rel="stylesheet" href="./CSS/index.css">
-    <title>Főoldal</title>
+    <link rel="stylesheet" href="./CSS/termek.css">
+    <title>Termék részletek</title>
 </head>
 <body>
     <main>
@@ -73,47 +93,89 @@ $products = json_decode($product_data, true)['termekek'];
         <nav>
             <ul class="menu">
                 <li><a href="index.php">Főoldal</a></li>
-                 <?php if (isset($_SESSION["user"])) { ?>
-                   <li><a href="profil.php">Profilom</a></li>
-                   <li><a href="kosar.php">Kosár</a></li>
-                   <li><a href="./php/kijelentkezes.php">Kijelentkezés</a></li>
-                   <?php if ($_SESSION["user"]["jogosultsag"] == "a") { ?>
-                    <li><a href="admin.php">Admin</a></li>
-                 <?php } ?>
-                 <?php } else { ?>
-                   <li><a href="bejelentkezes.php">Bejelentkezés</a></li>
-                   <li><a href="regisztracio.php">Regisztráció</a></li>
-                 <?php } ?>
+                <?php if (isset($_SESSION["user"])) { ?>
+                    <li><a href="profil.php">Profilom</a></li>
+                    <li><a href="kosar.php">Kosár</a></li>
+                    <li><a href="./php/kijelentkezes.php">Kijelentkezés</a></li>
+                    <?php if ($_SESSION["user"]["jogosultsag"] == "a") { ?>
+                        <li><a href="admin.php">Admin</a></li>
+                    <?php } ?>
+                <?php } else { ?>
+                    <li><a href="bejelentkezes.php">Bejelentkezés</a></li>
+                    <li><a href="regisztracio.php">Regisztráció</a></li>
+                <?php } ?>
             </ul>
         </nav>
         <article>
-            <h1>Termékeink</h1>
-   <?php
-   foreach($products as $row)
-   {
-   ?>
-   <div class="termek">
-    <form method="post">
-    <img src="kepek/<?php echo $row["kep"]; ?>" class="img-responsive" /><br />
-
-      <h4 class="nev"><?php echo $row["megnevezes"]; ?></h4>
-
-      <h4 class="ar"><?php echo $row["ar"]; ?> Ft</h4>
-
-      <input type="number" name="quantity" value="1" class="szamotbevisz" min="1" />
-      <input type="hidden" name="hidden_name" value="<?php echo $row["megnevezes"]; ?>" />
-      <input type="hidden" name="hidden_price" value="<?php echo $row["ar"]; ?>" />
-      <input type="hidden" name="hidden_id" value="<?php echo $row["cikkszam"]; ?>" />
-      <br>
-      <input type="submit" name="add_to_cart"  class="kosarbarakgomb" value="Kosárba rak" />
-    </form>
-   </div>
-   <?php
-   }
-   ?>
+            <div class="termek">
+                <img src="kepek/<?php echo $selected_product["kep"]; ?>" class="img-responsive" /><br />
+                <h4 class="nev">Termék neve: <?php echo $selected_product["megnevezes"]; ?></h4>
+                <h4 class="hosszunev">Termék hosszú neve: <?php echo $selected_product["hosszunev"]; ?></h4>
+                <h4 class="cikkszam">Cikkszám: <?php echo $selected_product["cikkszam"]; ?></h4>
+                <h4 class="gyartoi_cikkszam">Gyártói cikkszám: <?php echo $selected_product["gyartoi_cikkszam"]; ?></h4>
+                <h4 class="marka">Márka: <?php echo $selected_product["marka"]; ?></h4>
+                <h4 class="gyarto">Gyártó: <?php echo $selected_product["gyarto"]; ?></h4>
+                <h4 class="garancia">Garancia: <?php echo $selected_product["garancia"]; ?> nap</h4>
+                <h4 class="ar"><?php echo $selected_product["ar"]; ?> Ft</h4>
+                <form method="post">
+                    <input type="number" name="quantity" value="1" class="szamotbevisz" min="1" />
+                    <input type="hidden" name="hidden_name" value="<?php echo $selected_product["megnevezes"]; ?>" />
+                    <input type="hidden" name="hidden_price" value="<?php echo $selected_product["ar"]; ?>" />
+                    <input type="hidden" name="hidden_id" value="<?php echo $selected_product["cikkszam"]; ?>" />
+                    <br>
+                    <input type="submit" name="add_to_cart"  class="kosarbarakgomb" value="Kosárba rak" />
+                </form>
+            </div>
         </article>
         <aside>
-            
+            <h2>Hozzászólások</h2>
+            <?php
+            if(isset($_SESSION["user"])) {
+                // Ha be van jelentkezve a felhasználó, megjelenítjük az űrlapot a hozzászólás írásához
+            ?>
+            <form method="post">
+            <input type="hidden" name="cikkszam" value="<?php echo $selected_product["cikkszam"]; ?>" /> <!-- Új sor: cikkszám elmentése -->
+            <textarea name="comment" rows="4" cols="50"></textarea><br>
+                    <input type="submit" name="submit_comment" value="Hozzászólás küldése">
+            </form>
+            <?php
+                // Ha a felhasználó elküldte a hozzászólást
+                if(isset($_POST["submit_comment"])) {
+                    // Ellenőrizzük, hogy a hozzászólás nem üres
+                    if(!empty($_POST["comment"])) {
+                        // Itt kellene menteni a hozzászólást az adatbázisba vagy egyéb tárolóba
+                        // Például egy comments.json fájlba
+                        // A következő sorok helyett egyéni kódot kell írni a hozzászólás mentésére
+
+                        // Példa: hozzászólások tárolása egy JSON fájlban
+                        $comments_file = './json/comments.json';
+                        $comments = [];
+
+                        if(file_exists($comments_file)) {
+                            $comments = json_decode(file_get_contents($comments_file), true);
+                        }
+
+                        $new_comment = [
+                            "user" => $_SESSION["user"]["felhasznalonev"], // A hozzászóló felhasználóneve
+                            "comment" => $_POST["comment"], // A hozzászólás szövege
+                            "cikkszam" => $_POST["cikkszam"], // A hozzászólás cikkszáma
+                            "timestamp" => date("Y-m-d H:i:s") // A hozzászólás időbélyege
+                        ];
+
+                        $comments[] = $new_comment;
+
+                        file_put_contents($comments_file, json_encode($comments, JSON_PRETTY_PRINT));
+
+                        // Frissítjük az oldalt, hogy a hozzászólás megjelenjen
+                        //header("Refresh:0");
+                    } else {
+                        echo "A hozzászólás nem lehet üres!";
+                    }
+                }
+            } else {
+                echo "Jelentkezz be, hogy hozzászólást írhass!";
+            }
+            ?>
         </aside>
         <footer>
             <p>Minden jog fenntartva!</p>
@@ -122,3 +184,14 @@ $products = json_decode($product_data, true)['termekek'];
     </main>
 </body>
 </html>
+<?php
+    } else {
+        // Ha nem találjuk meg az adott cikkszámú terméket, hibaüzenetet jelenítünk meg
+        echo "A keresett termék nem található!";
+    }
+} else {
+    // Ha nincs cikkszám átadva az URL-en keresztül, átirányítjuk a felhasználót a főoldalra
+    header("Location: index.php");
+    exit;
+}
+?>
