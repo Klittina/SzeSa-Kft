@@ -91,18 +91,73 @@ main{
 }
 #container {
   display: flex;
-  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.ujprofil{
+  width: 60%;
+}
+
+.adataim,
+.profilkep {
+  width: 48%; /* A két elem 48%-os szélessége, hogy maradjon hely a közöttük lévő térnek */
+}
+.profilkep{
+  display: flex;
+    flex-direction: column;
+    align-items: center; /* A tartalom középre igazítása */
+    text-align: center; /* A szöveg középre igazítása */
 }
 
 .adataim {
-  width: 50%;
+  margin-right: 2%; /* Margó a jobb oldalon, hogy ne érintkezzen a következő elemmel */
 }
 
-.profilkep {
-  width: 50%;
-  margin: auto;
-  align-items: center;
+.profilkep img {
+  max-width: 60%; /* A kép ne lépje túl az elrendezést */
+    height: auto; /* Automatikus magasság beállítása az arány megtartása érdekében */
+    margin-bottom: 10px; /* Tér az alján a szövegtől */
 }
-.profilkep img{
-  width: 50%;
+/* Rendelések táblázatának stílusa */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+/* Fejléc sor stílusa */
+th {
+  background-color: #f2f2f2;
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Adatsorok stílusa */
+td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Összesen és rendelés azonosító mezők összevonása */
+.total, .order-id {
+  border-right: none;
+}
+
+/* Elválasztó sor stílusa */
+.separator-row td {
+  border: none;
+}
+
+/* Elválasztó sor szövege */
+.separator-row td::before {
+  content: "--------------";
+  display: block;
+  color: #888;
+  font-style: italic;
+  padding-bottom: 5px;
+}
+.profiltorles{
+  margin-top: 50px;
 }

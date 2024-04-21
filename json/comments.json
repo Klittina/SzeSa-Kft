@@ -1,1 +1,23 @@
-[]
+[
+    {
+        "user": "Klittina",
+        "comment": "Legjobb!",
+        "cikkszam": "315898",
+        "timestamp": "2024-04-21 21:21:20",
+        "deletable": true
+    },
+    {
+        "user": "Klittina",
+        "comment": "Im\u00e1dom!",
+        "cikkszam": "312697",
+        "timestamp": "2024-04-21 21:21:41",
+        "deletable": true
+    },
+    {
+        "user": "Klittina",
+        "comment": "Ez viszont kaka:C",
+        "cikkszam": "293171",
+        "timestamp": "2024-04-21 21:21:52",
+        "deletable": true
+    }
+]

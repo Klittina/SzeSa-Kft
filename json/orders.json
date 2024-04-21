@@ -18,6 +18,19 @@
                 }
             },
             "total": 550110
+        },
+        {
+            "id": 2,
+            "user_id": "Klittina",
+            "items": [
+                {
+                    "item_id": "312697",
+                    "item_name": "HP 250 G8",
+                    "item_price": "210110",
+                    "item_quantity": "1"
+                }
+            ],
+            "total": 210110
         }
     ]
 }

@@ -66,7 +66,7 @@ if (!isset($_SESSION["user"]) && basename($_SERVER['PHP_SELF']) != 'bejelentkeze
                 
                 <form action="./php/profilkepmodositas.php" method="post" enctype="multipart/form-data">
     <input type="file" name="fileToUpload" id="fileToUpload">
-    <button type="submit" name="upload">Profilkép feltöltése</button>
+    <button type="submit" name="upload" class="ujprofil">Profilkép feltöltése</button>
 </form>
                </div>
             </div>
@@ -96,7 +96,7 @@ if (!isset($_SESSION["user"]) && basename($_SERVER['PHP_SELF']) != 'bejelentkeze
         echo "<p>Még nem adott le rendelést. <br> Itt jelennek majd meg a korábbi rendelései.</p>";
     } else {
         echo '<table border="1">';
-        echo '<tr><th>Rendelés azonosító</th><th>Termék neve</th><th>Termék ára</th><th>Mennyiség</th><th>Összeszen</th></tr>';
+        echo '<tr><th>Rendelés azonosító</th><th>Termék neve</th><th>Termék ára</th><th>Mennyiség</th><th>Összesen</th></tr>';
         foreach ($userOrders as $order) {
             foreach ($order['items'] as $item) {
                 echo "<tr>";
@@ -114,9 +114,9 @@ if (!isset($_SESSION["user"]) && basename($_SERVER['PHP_SELF']) != 'bejelentkeze
             </div>
         <hr>
         
-        <div>
+        <div class="profiltorles">
             <form action="./php/profiltorles.php" method="post" id="deleteProfileForm">
-            <button type="submit" name="torol">Profil törlése</button>
+            <button type="submit" name="torol" >Profil törlése</button>
         </div>
 </form>
         </div>
