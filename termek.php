@@ -128,55 +128,104 @@ if(isset($_GET['cikkszam'])) {
             </div>
         </article>
         <aside>
-            <h2>Hozzászólások</h2>
-            <?php
-            if(isset($_SESSION["user"])) {
-                // Ha be van jelentkezve a felhasználó, megjelenítjük az űrlapot a hozzászólás írásához
-            ?>
-            <form method="post">
-            <input type="hidden" name="cikkszam" value="<?php echo $selected_product["cikkszam"]; ?>" /> <!-- Új sor: cikkszám elmentése -->
-            <textarea name="comment" rows="4" cols="50"></textarea><br>
-                    <input type="submit" name="submit_comment" value="Hozzászólás küldése">
-            </form>
-            <?php
-                // Ha a felhasználó elküldte a hozzászólást
-                if(isset($_POST["submit_comment"])) {
-                    // Ellenőrizzük, hogy a hozzászólás nem üres
-                    if(!empty($_POST["comment"])) {
-                        // Itt kellene menteni a hozzászólást az adatbázisba vagy egyéb tárolóba
-                        // Például egy comments.json fájlba
-                        // A következő sorok helyett egyéni kódot kell írni a hozzászólás mentésére
+    <h2>Hozzászólások</h2>
+    <?php
+    if(isset($_SESSION["user"])) {
+        // Ha be van jelentkezve a felhasználó, megjelenítjük az űrlapot a hozzászólás írásához
+    ?>
+    <form method="post">
+        <input type="hidden" name="cikkszam" value="<?php echo $selected_product["cikkszam"]; ?>" /> <!-- Új sor: cikkszám elmentése -->
+        <textarea name="comment" rows="4" cols="50"></textarea><br>
+        <input type="submit" name="submit_comment" value="Hozzászólás küldése">
+    </form>
+    <?php
+        // Ha a felhasználó elküldte a hozzászólást
+        if(isset($_POST["submit_comment"])) {
+            // Ellenőrizzük, hogy a hozzászólás nem üres
+            if(!empty($_POST["comment"])) {
+                // Hozzáférünk az adott cikkszámhoz kapcsolódó hozzászólásokhoz
+                $comments_file = './json/comments.json';
+                $comments = [];
 
-                        // Példa: hozzászólások tárolása egy JSON fájlban
-                        $comments_file = './json/comments.json';
-                        $comments = [];
-
-                        if(file_exists($comments_file)) {
-                            $comments = json_decode(file_get_contents($comments_file), true);
-                        }
-
-                        $new_comment = [
-                            "user" => $_SESSION["user"]["felhasznalonev"], // A hozzászóló felhasználóneve
-                            "comment" => $_POST["comment"], // A hozzászólás szövege
-                            "cikkszam" => $_POST["cikkszam"], // A hozzászólás cikkszáma
-                            "timestamp" => date("Y-m-d H:i:s") // A hozzászólás időbélyege
-                        ];
-
-                        $comments[] = $new_comment;
-
-                        file_put_contents($comments_file, json_encode($comments, JSON_PRETTY_PRINT));
-
-                        // Frissítjük az oldalt, hogy a hozzászólás megjelenjen
-                        //header("Refresh:0");
-                    } else {
-                        echo "A hozzászólás nem lehet üres!";
-                    }
+                if(file_exists($comments_file)) {
+                    $comments = json_decode(file_get_contents($comments_file), true);
                 }
+
+                // Új hozzászólás létrehozása
+                $new_comment = [
+                    "user" => $_SESSION["user"]["felhasznalonev"], // A hozzászóló felhasználóneve
+                    "comment" => $_POST["comment"], // A hozzászólás szövege
+                    "cikkszam" => $_POST["cikkszam"], // A hozzászólás cikkszáma
+                    "timestamp" => date("Y-m-d H:i:s"), // A hozzászólás időbélyege
+                    "deletable" => true // Az alapértelmezett érték, hogy a felhasználó törölheti a saját hozzászólását
+                ];
+
+                // Hozzáfűzzük az új hozzászólást a többihez
+                $comments[] = $new_comment;
+
+                // Frissítjük a kommenteket tartalmazó JSON fájlt
+                file_put_contents($comments_file, json_encode($comments, JSON_PRETTY_PRINT));
+
+                // Frissítjük az oldalt, hogy a hozzászólás megjelenjen
+                header("Refresh:0");
             } else {
-                echo "Jelentkezz be, hogy hozzászólást írhass!";
+                echo "A hozzászólás nem lehet üres!";
             }
-            ?>
-        </aside>
+        }
+    } else {
+        echo "Jelentkezz be, hogy hozzászólást írhass!";
+    }
+
+    // Megjelenítjük az összes adott cikkszámhoz tartozó hozzászólást
+    $comments_file = './json/comments.json';
+    $comments = [];
+
+    if(file_exists($comments_file)) {
+        $comments = json_decode(file_get_contents($comments_file), true);
+    }
+     // Megjelenítjük az összes adott cikkszámhoz tartozó hozzászólást
+     if(isset($comments) && is_array($comments)) {
+        foreach($comments as $comment) {
+            // Ellenőrizzük, hogy a hozzászólás az adott cikkszámhoz tartozik-e
+            if($comment['cikkszam'] == $selected_product["cikkszam"]) {
+                // Megjelenítjük a hozzászólást és annak adatait
+                echo "<div class ='komment'";
+                echo "<p class ='felhasznalonev'><strong>Felhasználó:</strong> " . $comment['user'] . "</p>";
+                echo "<p class ='tartalom'><strong>Hozzászólás:</strong> " . $comment['comment'] . "</p>";
+                echo "<p class ='ido'><strong>Dátum:</strong> " . $comment['timestamp'] . "</p>";
+                // Ellenőrizzük, hogy az aktuális felhasználó adminisztrátor-e
+                if(isset($_SESSION["user"]) && $_SESSION["user"]["jogosultsag"] == "a") {
+                    // Ha az aktuális felhasználó adminisztrátor, megjelenítjük a törlés gombot
+                    echo "<form method='post'>";
+                    echo "<input type='hidden' name='comment_id' value='" . array_search($comment, $comments) . "' />";
+                    echo "<input type='submit' name='delete_comment' value='Törlés' />";
+                    echo "</form>";
+                }
+                echo "</div>";
+            }
+        }
+    } else {
+        echo "<p>Még nincsenek hozzászólások.</p>";
+    }
+
+
+    // Ha a törlés gombra kattintottak
+    if(isset($_POST["delete_comment"])) {
+        // Ellenőrizzük, hogy az aktuális felhasználó adminisztrátor-e
+        if(isset($_SESSION["user"]) && $_SESSION["user"]["jogosultsag"] == "a") {
+            // Megkeressük a törlendő hozzászólást
+            $comment_id = $_POST["comment_id"];
+            // Töröljük a hozzászólást a tömbből
+            unset($comments[$comment_id]);
+            // Frissítjük a JSON fájlt
+            file_put_contents($comments_file, json_encode(array_values($comments), JSON_PRETTY_PRINT));
+            // Frissítjük az oldalt
+            header("Refresh:0");
+        }
+    }
+    ?>
+</aside>
+
         <footer>
             <p>Minden jog fenntartva!</p>
             <p>Szesa Kft</p>

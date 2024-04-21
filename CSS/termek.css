@@ -98,3 +98,39 @@ footer{
 h1{
     text-align: center;
 }
+.komment {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    width: 50%;
+    margin-top: 20px;
+}
+
+.komment p {
+    margin: 5px 0;
+}
+
+.komment .felhasznalonev {
+    font-weight: bold;
+}
+
+.komment .ido {
+    color: #666;
+    font-size: 0.9em;
+}
+
+.komment .delete-btn {
+    background-color: #ff3333;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-top: 10px;
+}
+
+.comment-container .delete-btn:hover {
+    background-color: #cc0000;
+}

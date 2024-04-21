@@ -48,7 +48,7 @@
         "vezeteknev" => $vezeteknev,
         "keresztnev" => $keresztnev, 
         "email" => $email,
-        "profilkep" => "",
+        "profilkep" => "blankprofile.jpg",
         "jogosultsag" => "f"
       ];
       // elmentjük a kibővített $fiokok tömböt a users.json fájlba
