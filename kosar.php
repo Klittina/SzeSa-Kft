@@ -40,6 +40,12 @@ if(isset($_GET["action"]))
         echo "<script>window.location.href = window.location.href.split('?')[0] + '?clearall=1';</script>";
         exit();
     }
+    if($_GET["action"] == "rendeles")
+    {
+        setcookie("shopping_cart", "", time() - 3600);
+        echo "<script>window.location.href = window.location.href.split('?')[0] + '?megrendeles=1';</script>";
+        exit();
+    }
 }
 
 if(isset($_GET["remove"]))
@@ -55,6 +61,14 @@ if(isset($_GET["clearall"]))
  $message = '
  <script>
     alert("A kosár tartalma törölve lett!");
+</script>
+ ';
+}
+if(isset($_GET["megrendeles"]))
+{
+ $message = '
+ <script>
+    alert("A rendelés sikeresen le lett adva!");
 </script>
  ';
 }
@@ -154,7 +168,10 @@ $products = json_decode($product_data, true)['termekek'];
    ?>
    </table>
    <br>
-    <input type="submit" value="Rendelés megerősítése" name="ujrendeles" class="gomb">
+   <form method="post" action="./php/megrendelesek.php">
+   <a href="kosar.php?action=rendeles"><input type="submit" value="Rendelés megerősítése" name="ujrendeles" class="gomb"></a>
+    
+        </form>
    </div>
   </div>
 </div>

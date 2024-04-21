@@ -1,21 +1,30 @@
 {
     "users": [
         {
+            "felhasznalonev": "Klittina",
+            "jelszo": "$2y$10$rxtI2mLskEdGT2pKPwc.0OkX\/A2EzK.Pyb4T\/vV3jpLnZDtbPNFOS",
+            "vezeteknev": "Szedlár",
+            "keresztnev": "Krisztina",
+            "email": "krisztike113@gmail.com",
+            "kep": "blankprofile.jpg",
+            "jogosultsag": "a"
+        },
+        {
             "felhasznalonev": "Klittinaléé",
             "jelszo": "$2y$10$4jEXWcC9WmBqeES\/93iyDu879My9Vi8imVyhKaVRJMLRerNPK7Jz.",
             "vezeteknev": "Szedlár",
             "keresztnev": "Krisztina",
             "email": "kankokft@teszt.com",
-            "profilkep":"",
+            "kep": "blankprofile.jpg",
             "jogosultsag": "a"
         },
         {
             "felhasznalonev": "Kevin",
-            "jelszo": "$2y$10$\/QzYqEWErNrFawipaUTccOCCdEKl7Y2tLXrPPmXyPXXRR4cNLN55u",
-            "vezeteknev": "Kis",
-            "keresztnev": "Kevin",
-            "email": "kankokft@teszt.com",
-            "profilkep":"",
+            "jelszo": "$2y$10$tHNoL9oUiT7dhAudeZT09Oxn39iXhz2py9fhs4\/k\/Z1MgOrU0Vuba",
+            "vezeteknev": "Szedlár",
+            "keresztnev": "Krisztina",
+            "email": "krisztike113@gmail.com",
+            "profilkep": "",
             "jogosultsag": "f"
         }
     ]

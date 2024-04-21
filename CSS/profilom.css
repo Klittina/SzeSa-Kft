@@ -89,3 +89,18 @@ main{
 #korabbirendelesek{
     text-align: center;
 }
+#container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.adataim {
+  width: 50%;
+}
+
+.profilkep {
+  width: 50%;
+}
+.profilkep img{
+  width: 50%;
+}
