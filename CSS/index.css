@@ -83,3 +83,22 @@ footer{
     text-align: center;
     margin-top: 100px;
 }
+.kosarbarakgomb{
+    background-color: #4CAF50; /* Zöld háttérszín */
+    border: none; /* Nincs keret */
+    color: white; /* Fehér szöveg */
+    padding: 15px 32px; /* Belső térköz */
+    text-align: center; /* Középre igazítás */
+    text-decoration: none; /* Nincs aláhúzás */
+    display: inline-block; /* Blokk elem */
+    font-size: 16px; /* Betűméret */
+    margin: 4px 2px; /* Külső térköz */
+    cursor: pointer; /* Mutató ikon */
+    border-radius: 8px; /* Kerekített sarkok */
+}
+.szamotbevisz{
+    width: 10%;
+}
+h1{
+    text-align: center;
+}

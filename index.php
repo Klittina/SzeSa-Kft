@@ -87,6 +87,7 @@ $products = json_decode($product_data, true)['termekek'];
             </ul>
         </nav>
         <article>
+            <h1>Termékeink</h1>
    <?php
    foreach($products as $row)
    {
@@ -97,14 +98,14 @@ $products = json_decode($product_data, true)['termekek'];
 
       <h4 class="nev"><?php echo $row["megnevezes"]; ?></h4>
 
-      <h4 class="ar">$ <?php echo $row["ar"]; ?></h4>
+      <h4 class="ar"><?php echo $row["ar"]; ?> Ft</h4>
 
-      <input type="text" name="quantity" value="1" class="form-control" />
+      <input type="number" name="quantity" value="1" class="szamotbevisz" min="1" />
       <input type="hidden" name="hidden_name" value="<?php echo $row["megnevezes"]; ?>" />
       <input type="hidden" name="hidden_price" value="<?php echo $row["ar"]; ?>" />
       <input type="hidden" name="hidden_id" value="<?php echo $row["cikkszam"]; ?>" />
       <br>
-      <input type="submit" name="add_to_cart" style="margin-top:5px;" class="btn btn-success" value="Kosárba rak" />
+      <input type="submit" name="add_to_cart"  class="kosarbarakgomb" value="Kosárba rak" />
     </form>
    </div>
    <?php

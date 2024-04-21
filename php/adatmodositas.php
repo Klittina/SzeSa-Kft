@@ -5,7 +5,7 @@
   // űrlapfeldolgozás
     $hibak = [];
 
-  if (isset($_POST["regisztral"])) {   // ha az űrlapot elküldték...
+  if (isset($_POST["frissit"])) {   // ha az űrlapot elküldték...
     // a kötelezően kitöltendő mezők ellenőrzése
     echo "<p>müködik</p>";
     if (!isset($_POST["felhasznalonev"]) || trim($_POST["felhasznalonev"]) === "")
@@ -48,7 +48,6 @@
         "vezeteknev" => $vezeteknev,
         "keresztnev" => $keresztnev, 
         "email" => $email,
-        "profilkep" => "",
         "jogosultsag" => "f"
       ];
       // elmentjük a kibővített $fiokok tömböt a users.json fájlba

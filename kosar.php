@@ -1,7 +1,12 @@
 <?php 
-include './php/ujrendeles.php';
+session_start();
 $message = '';
 
+// Ha nincs bejelentkezve a felhasználó, és az URL-ben nincs beírva a kosar.php, akkor átirányítjuk a bejelentkezési oldalra
+if (!isset($_SESSION["user"]) && basename($_SERVER['PHP_SELF']) != 'bejelentkezes.php') {
+    header("Location: bejelentkezes.php");
+    exit;
+}
 
 if(isset($_GET["action"]))
 {
@@ -96,7 +101,8 @@ $products = json_decode($product_data, true)['termekek'];
    <br>
    <div class="table-responsive">
    <?php echo $message; ?>
-    <a href="kosar.php?action=clear"><b>Kosár törlése</b></a>
+    <a href="kosar.php?action=clear"><p class="gomb elsogomb">Kosár törlése</p></a>
+    <br><br>
    </div>
    <table class="table table-bordered">
     <tr>
@@ -131,11 +137,10 @@ $products = json_decode($product_data, true)['termekek'];
     }
    ?>
     <tr>
-     <td colspan="3" align="right">Total</td>
+     <td colspan="3" align="right">Teljes összeg</td>
      <td align="right"> <?php echo number_format($total); ?> Ft</td>
      <td></td>
     </tr>
-    <input type="submit" value="Rendelés megerősítése" name="ujrendeles">
    <?php
    }
    else
@@ -148,6 +153,8 @@ $products = json_decode($product_data, true)['termekek'];
    }
    ?>
    </table>
+   <br>
+    <input type="submit" value="Rendelés megerősítése" name="ujrendeles" class="gomb">
    </div>
   </div>
 </div>

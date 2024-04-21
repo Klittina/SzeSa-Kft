@@ -1,5 +1,10 @@
 <?php
   session_start();
+// Ha nincs bejelentkezve a felhasználó, és az URL-ben nincs beírva a kosar.php, akkor átirányítjuk a bejelentkezési oldalra
+if (!isset($_SESSION["user"]) && basename($_SERVER['PHP_SELF']) != 'bejelentkezes.php') {
+  header("Location: bejelentkezes.php");
+  exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="hu">
