@@ -1,10 +1,115 @@
-<?php
+<?php 
 session_start();
-// Ellenőrizzük, hogy a kosár munkamenet változója létezik-e, ha nem, létrehozzuk
-if (!isset($_SESSION['kosar'])) {
-    $_SESSION['kosar'] = [];
+$message = '';
+
+if(isset($_POST["add_to_cart"]))
+{
+ if(isset($_COOKIE["shopping_cart"]))
+ {
+  $cookie_data = stripslashes($_COOKIE['shopping_cart']);
+  $cart_data = json_decode($cookie_data, true);
+ }
+ else
+ {
+  $cart_data = array();
+ }
+
+ $item_id_list = array_column($cart_data, 'item_id');
+
+ if(in_array($_POST["hidden_id"], $item_id_list))
+ {
+  foreach($cart_data as $keys => $values)
+  {
+   if($cart_data[$keys]["item_id"] == $_POST["hidden_id"])
+   {
+    $cart_data[$keys]["item_quantity"] = $cart_data[$keys]["item_quantity"] + $_POST["quantity"];
+   }
+  }
+ }
+ else
+ {
+  $item_array = array(
+   'item_id'   => $_POST["hidden_id"],
+   'item_name'   => $_POST["hidden_name"],
+   'item_price'  => $_POST["hidden_price"],
+   'item_quantity'  => $_POST["quantity"]
+  );
+  $cart_data[] = $item_array;
+ }
+
+ $item_data = json_encode($cart_data);
+ setcookie('shopping_cart', $item_data, time() + (86400 * 30));
+ //header("location:index.php?success=1");
 }
-var_dump('kosar');
+
+if(isset($_GET["action"]))
+{
+    if($_GET["action"] == "delete")
+    {
+        $cookie_data = stripslashes($_COOKIE['shopping_cart']);
+        $cart_data = json_decode($cookie_data, true);
+        foreach($cart_data as $keys => $values)
+        {
+            if($cart_data[$keys]['item_id'] == $_GET["id"])
+            {
+                unset($cart_data[$keys]);
+                $item_data = json_encode($cart_data);
+                setcookie("shopping_cart", $item_data, time() + (86400 * 30));
+                // Nincs header függvény, maradunk a jelenlegi oldalon
+                // header("location:index.php?remove=1");
+
+                // Most frissítjük a kosár oldalt, hogy az új tartalom jelenjen meg
+                echo "<script>window.location.href = window.location.href.split('?')[0] + '?remove=1';</script>";
+                exit();
+            }
+        }
+    }
+    if($_GET["action"] == "clear")
+    {
+        setcookie("shopping_cart", "", time() - 3600);
+        // Nincs header függvény, maradunk a jelenlegi oldalon
+        // header("location:index.php?clearall=1");
+
+        // Most frissítjük a kosár oldalt, hogy az új tartalom jelenjen meg
+        echo "<script>window.location.href = window.location.href.split('?')[0] + '?clearall=1';</script>";
+        exit();
+    }
+}
+
+
+if(isset($_GET["success"]))
+{
+ $message = '
+ <div class="alert alert-success alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    Item Added into Cart
+ </div>
+ ';
+}
+
+if(isset($_GET["remove"]))
+{
+ $message = '
+ <div class="alert alert-success alert-dismissible">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  Item removed from Cart
+ </div>
+ ';
+}
+if(isset($_GET["clearall"]))
+{
+ $message = '
+ <div class="alert alert-success alert-dismissible">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  Your Shopping Cart has been clear...
+ </div>
+ ';
+}
+
+// Fetching product data from JSON file
+$product_data = file_get_contents('./json/termekek.json');
+$products = json_decode($product_data, true)['termekek'];
+
 ?>
 <!DOCTYPE html>
 <html lang="hu">
@@ -36,22 +141,61 @@ var_dump('kosar');
             <?php } ?>
         </ul>
     </nav>
-    <div id="kosar">
-        <?php
-        if (isset($_SESSION['kosar']) && !empty($_SESSION['kosar'])) {
-    echo '<h2>Kosár tartalma:</h2>';
-    foreach ($_SESSION['kosar'] as $termek) {
-        echo '<div>';
-        echo '  <p>Termék neve: ' . $termek['megnevezes'] . '</p>';
-        echo '  <p>Ár: ' . $termek['ar'] . ' Ft</p>';
-        // További termék részletek kiírása...
-        echo '</div>';
+    <div style="clear:both"></div>
+   <br />
+   <h3>Kosár</h3>
+   <div class="table-responsive">
+   <?php echo $message; ?>
+   <div align="right">
+    <a href="index.php?action=clear"><b>Kosár törlése</b></a>
+   </div>
+   <table class="table table-bordered">
+    <tr>
+     <th width="40%">Termék neve</th>
+     <th width="10%">Mennyiség</th>
+     <th width="20%">Ár</th>
+     <th width="15%">Összesen</th>
+     <th width="5%"></th>
+    </tr>
+   <?php
+   if(isset($_COOKIE["shopping_cart"]))
+   {
+    $total = 0;
+    $cookie_data = stripslashes($_COOKIE['shopping_cart']);
+    $cart_data = json_decode($cookie_data, true);
+    foreach($cart_data as $keys => $values)
+    {
+   ?>
+    <tr>
+     <td><?php echo $values["item_name"]; ?></td>
+     <td><?php echo $values["item_quantity"]; ?></td>
+     <td>$ <?php echo $values["item_price"]; ?></td>
+     <td>$ <?php echo number_format($values["item_quantity"] * $values["item_price"], 2);?></td>
+     <td><a href="kosar.php?action=delete&id=<?php echo $values["item_id"]; ?>"><span class="text-danger">Termék törlése</span></a></td>
+    </tr>
+   <?php 
+     $total = $total + ($values["item_quantity"] * $values["item_price"]);
     }
-} else {
-    echo '<p>A kosár üres.</p>';
-}
-?>
-    </div>
+   ?>
+    <tr>
+     <td colspan="3" align="right">Total</td>
+     <td align="right">$ <?php echo number_format($total, 2); ?></td>
+     <td></td>
+    </tr>
+   <?php
+   }
+   else
+   {
+    echo '
+    <tr>
+     <td colspan="5" align="center">Nincs termék a kosárban</td>
+    </tr>
+    ';
+   }
+   ?>
+   </table>
+   </div>
+  </div>
     <footer>
         <p>Minden jog fenntartva!</p>
         <p>Szesa Kft</p>

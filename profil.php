@@ -1,6 +1,23 @@
 <?php
   session_start();
-  echo $_SESSION["kosar"];
+  // Ha a POST kérés tartalmazza az adatot, akkor mentsük el a session-be
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['termekData'])) {
+  $termekData = $_POST['termekData'];
+  
+  // Hibakeresési kimenet az érkező adatokról
+  echo "Érkező adat: ";
+  var_dump($termekData);
+  
+  // Ellenőrizzük, hogy a session változó létezik-e, ha nem, akkor hozzunk létre egy üres tömböt
+  $_SESSION['kosar'] = isset($_SESSION['kosar']) ? $_SESSION['kosar'] : array();
+  
+  // Mentsük el az adatot a session tömbbe
+  $_SESSION['kosar'][] = json_decode($termekData, true);
+
+  // Hibakeresési kimenet a mentett adatokról
+  echo "Mentett adatok: ";
+  var_dump($_SESSION['kosar']);
+}
 ?>
 <!DOCTYPE html>
 <html lang="hu">

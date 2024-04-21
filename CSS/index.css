@@ -56,6 +56,9 @@ article{
     margin: auto;
 }
 
+.img-responsive{
+    width: 40%;
+}
 article div{
     float: left;
     width: 32.8%;

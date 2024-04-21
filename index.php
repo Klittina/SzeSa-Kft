@@ -1,18 +1,115 @@
-<?php
-  session_start();
+<?php 
+session_start();
+$message = '';
 
-  // Ha a POST kérés tartalmazza az adatot, akkor mentsük el a session-be
-  if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['termekData'])) {
-      $termekData = $_POST['termekData'];
-      
-      // Ellenőrizzük, hogy a session változó létezik-e, ha nem, akkor hozzunk létre egy üres tömböt
-      $_SESSION['kosar'] = isset($_SESSION['kosar']) ? $_SESSION['kosar'] : array();
-      
-      // Mentsük el az adatot a session tömbbe
-      $_SESSION['kosar'][] = json_decode($termekData, true);
-      echo('$termekdata');
+if(isset($_POST["add_to_cart"]))
+{
+ if(isset($_COOKIE["shopping_cart"]))
+ {
+  $cookie_data = stripslashes($_COOKIE['shopping_cart']);
+  $cart_data = json_decode($cookie_data, true);
+ }
+ else
+ {
+  $cart_data = array();
+ }
+
+ $item_id_list = array_column($cart_data, 'item_id');
+
+ if(in_array($_POST["hidden_id"], $item_id_list))
+ {
+  foreach($cart_data as $keys => $values)
+  {
+   if($cart_data[$keys]["item_id"] == $_POST["hidden_id"])
+   {
+    $cart_data[$keys]["item_quantity"] = $cart_data[$keys]["item_quantity"] + $_POST["quantity"];
+   }
   }
-  echo $_SESSION["kosar"];
+ }
+ else
+ {
+  $item_array = array(
+   'item_id'   => $_POST["hidden_id"],
+   'item_name'   => $_POST["hidden_name"],
+   'item_price'  => $_POST["hidden_price"],
+   'item_quantity'  => $_POST["quantity"]
+  );
+  $cart_data[] = $item_array;
+ }
+
+ $item_data = json_encode($cart_data);
+ setcookie('shopping_cart', $item_data, time() + (86400 * 30));
+ //header("location:index.php?success=1");
+}
+
+if(isset($_GET["action"]))
+{
+    if($_GET["action"] == "delete")
+    {
+        $cookie_data = stripslashes($_COOKIE['shopping_cart']);
+        $cart_data = json_decode($cookie_data, true);
+        foreach($cart_data as $keys => $values)
+        {
+            if($cart_data[$keys]['item_id'] == $_GET["id"])
+            {
+                unset($cart_data[$keys]);
+                $item_data = json_encode($cart_data);
+                setcookie("shopping_cart", $item_data, time() + (86400 * 30));
+                // Nincs header függvény, maradunk a jelenlegi oldalon
+                // header("location:index.php?remove=1");
+
+                // Most frissítjük a kosár oldalt, hogy az új tartalom jelenjen meg
+                echo "<script>window.location.href = window.location.href.split('?')[0] + '?remove=1';</script>";
+                exit();
+            }
+        }
+    }
+    if($_GET["action"] == "clear")
+    {
+        setcookie("shopping_cart", "", time() - 3600);
+        // Nincs header függvény, maradunk a jelenlegi oldalon
+        // header("location:index.php?clearall=1");
+
+        // Most frissítjük a kosár oldalt, hogy az új tartalom jelenjen meg
+        echo "<script>window.location.href = window.location.href.split('?')[0] + '?clearall=1';</script>";
+        exit();
+    }
+}
+
+
+if(isset($_GET["success"]))
+{
+ $message = '
+ <div class="alert alert-success alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    Item Added into Cart
+ </div>
+ ';
+}
+
+if(isset($_GET["remove"]))
+{
+ $message = '
+ <div class="alert alert-success alert-dismissible">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  Item removed from Cart
+ </div>
+ ';
+}
+if(isset($_GET["clearall"]))
+{
+ $message = '
+ <div class="alert alert-success alert-dismissible">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  Your Shopping Cart has been clear...
+ </div>
+ ';
+}
+
+// Fetching product data from JSON file
+$product_data = file_get_contents('./json/termekek.json');
+$products = json_decode($product_data, true)['termekek'];
+
 ?>
 <!DOCTYPE html>
 <html lang="hu">
@@ -45,50 +142,34 @@
             </ul>
         </nav>
         <article>
-        <?php
-        // Betöltjük a termékek listáját a JSON fájlból
-        $termekek_json = file_get_contents('./json/termekek.json');
-        $termekek = json_decode($termekek_json, true);
+   <?php
+   foreach($products as $row)
+   {
+   ?>
+   <div class="termek">
+    <form method="post">
+    <img src="kepek/<?php echo $row["kep"]; ?>" class="img-responsive" /><br />
 
-        // Ellenőrizzük, hogy sikerült-e betölteni az adatokat
-        if ($termekek === null) {
-            die('Hiba történt az adatok betöltése közben.');
-        }
+      <h4 class="nev"><?php echo $row["megnevezes"]; ?></h4>
 
-        // Ellenőrizzük, hogy van-e legalább egy termék
-        if (empty($termekek['termekek'])) {
-            echo 'Nincsenek termékek a listában.';
-        } else {
-            // Ha vannak termékek, megjelenítjük azokat
-            foreach ($termekek['termekek'] as $termek) {
-                echo '<div class="termek">';
-                echo '  <h1 class="nev">' . $termek['megnevezes'] . '</h1>';
-                echo'<img src="./kepek/'. $termek['kep'] .'" alt="" style="width: 40%;">';
-                echo '  <p class="cikkszam">Cikkszám: ' . $termek['cikkszam'] . '</p>';
-                echo '  <p class="ar">Ár: ' . $termek['ar'] . ' Ft</p>';
-                echo '<button class="kosarbarak" data-termek=\'' . json_encode($termek) . '\'>Kosárhoz adás</button>';
-                echo '</div>';
-            }
-        }
-        ?>
+      <h4 class="ar">$ <?php echo $row["ar"]; ?></h4>
+
+      <input type="text" name="quantity" value="1" class="form-control" />
+      <input type="hidden" name="hidden_name" value="<?php echo $row["megnevezes"]; ?>" />
+      <input type="hidden" name="hidden_price" value="<?php echo $row["ar"]; ?>" />
+      <input type="hidden" name="hidden_id" value="<?php echo $row["cikkszam"]; ?>" />
+      <br>
+      <input type="submit" name="add_to_cart" style="margin-top:5px;" class="btn btn-success" value="Kosárba rak" />
+    </form>
+   </div>
+   <?php
+   }
+   ?>
         </article>
         <footer>
             <p>Minden jog fenntartva!</p>
             <p>Szesa Kft</p>
         </footer>
     </main>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $(".kosarbarak").click(function(){
-                var termekData = $(this).data('termek');
-                console.log(termekData)
-                $.post(window.location.href, {termekData: JSON.stringify(termekData)}, function(response){
-                    alert("Termék hozzáadva a kosárhoz!");
-                });
-            });
-        });
-    </script>
 </body>
 </html>
